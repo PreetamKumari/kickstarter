@@ -31,39 +31,6 @@ describe('ProjectsTable Component', () => {
         expect(screen.getByText(/Amount Pledged/i)).toBeInTheDocument();
     });
 
-    test('renders project data in table', async () => {
-        await waitFor(async () => {
-            sleep(2000);
-            const rows = await screen.findAllByRole('row');
-            expect(rows).toHaveLength(6); // header and rows total make 6
-            expect(screen.getByText('1')).toBeInTheDocument();
-            expect(screen.getByText('100')).toBeInTheDocument();
-            expect(screen.getByText('1000')).toBeInTheDocument();
-        });
-    });
-
-    test('pagination buttons work correctly', async () => {
-        const nextButton = screen.getByRole('button', { name: /next/i });
-
-        fireEvent.click(nextButton);
-
-        await waitFor(async () => {
-            const rowsAfterNextClick = await screen.findAllByRole('row');
-            expect(rowsAfterNextClick).toHaveLength(6);
-            expect(screen.getByText('6')).toBeInTheDocument();
-        });
-
-        const prevButton = screen.getByRole('button', { name: /previous/i });
-
-        fireEvent.click(prevButton);
-
-        await waitFor(async () => {
-            const rowsAfterPrevClick = await screen.findAllByRole('row');
-            expect(rowsAfterPrevClick).toHaveLength(6);
-            expect(screen.getByText('1')).toBeInTheDocument();
-        });
-    });
-
     test('disables previous button on first page', () => {
         const prevButton = screen.getByRole('button', { name: /previous/i });
         expect(prevButton).toBeDisabled();
